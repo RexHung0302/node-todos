@@ -1,0 +1,70 @@
+doctype html
+html
+  head
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(
+      rel='stylesheet',
+      href='/stylesheets/style.css'
+    )
+    link(
+      rel="stylesheet", 
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css",
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z",
+      crossorigin="anonymous"
+    )
+    link(
+      rel="stylesheet",
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    )
+    link(
+      rel="stylesheet",
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    )
+  body
+    nav.navbar.position-relative
+      h1.mb-0
+        a.font-weight-bolder.href-normal.border-bottom.border-dark.border-width-lg(href='/') Todo List
+      ul.navbar-nav.d-flex.flex-row
+        if auth
+          li.nav-item.d-flex.align-items-center
+            a.new-task-btn.href-normal(href='/newTask')
+              i.fas.fa-plus.py-1
+              span.ml-1.d-none.d-md-inline
+                | New
+                | Task
+          li.nav-item.ml-3
+            button.btn.bg-white.rounded-pill.font-italic
+              a.log-out-btn.href-normal.font-weight-bold(href='/users/logout') Log out
+        else
+          li.nav-item.ml-3
+            button.btn.bg-white.rounded-pill.font-italic
+              a.log-out-btn.href-normal.font-weight-bold(href='/users/login') Login
+    block content
+    script(
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js",
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj",
+      crossorigin="anonymous"
+    )
+    script(
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js",
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN",
+      crossorigin="anonymous"
+    )
+    script(
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js",
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV",
+      crossorigin="anonymous"
+    )
+    script(
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"
+    )
+    script(
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+    )
+    script(
+      src="https://cdn.jsdelivr.net/npm/sweetalert2@10"
+    )
+    script(
+      src="/javascripts/all.js"
+    )

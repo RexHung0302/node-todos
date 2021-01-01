@@ -1,0 +1,76 @@
+extends layout/main
+
+block content
+  .container
+    .row.justify-content-md-center
+      .col-12.col-md-6
+        .card.mt-5(
+          style="background-color: #ffffffcc;"
+        )
+          .card-body
+            .card-title.text-center.border-bottom.mb-4
+              img(src="/images/signup-logo.png")
+            if error
+              each val,index in error
+                .alert.alert-danger.alert-dismissible.fade.show.animate__animated.animate__shakeX(
+                  role="alert"
+                )
+                  strong= val.msg
+                  button(
+                    type="button",
+                    class="close",
+                    data-dismiss="alert",
+                    aria-label="Close"
+                  )
+                    span(aria-hidden="true") &times;
+            form.form-group(
+              method="post",
+            )
+              .input-group.mb-3.flex-wrap
+                .input-group-prepend
+                  label.input-group-text.bg-white(
+                    for="email"
+                  )
+                    i.far.fa-envelope
+                input#email.form-control(
+                  type='text', 
+                  name="email",
+                  placeholder="Email",
+                  autocomplete,
+                  value=`${email_val ? email_val : ''}`
+                )
+              .input-group.mb-3
+                .input-group-prepend
+                  label.input-group-text.bg-white(
+                    for="password"
+                  )
+                    i.fas.fa-key
+                input#password.form-control(
+                  type='password', 
+                  name="password",
+                  placeholder="Password",
+                  autocomplete,
+                  value=`${password_val ? password_val : ''}`
+                )
+              .input-group.mb-3
+                .input-group-prepend
+                  label.input-group-text.bg-white(
+                    for="confirm_password"
+                  )
+                    i.fas.fa-key
+                input#confirm_password.form-control(
+                  type='password', 
+                  name="confirm_password",
+                  placeholder="Confirm Password",
+                  autocomplete,
+                  value=`${confirm_password_val ? confirm_password_val : ''}`
+                )
+                small.w-100.font-weight-bold Password need at least 6 word.
+              button.btn.btn-block.btn-primary(
+                type="submit"
+              ) Sing Up
+            hr
+            .d-flex.align-items-center.justify-content-end
+              small.pr-2 Already Has Account?
+              button.btn.bg-white.rounded-pill.font-italic
+                a.log-out-btn.href-normal.font-weight-bold(href='/users/login') Login Now!

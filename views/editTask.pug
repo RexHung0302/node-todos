@@ -1,0 +1,61 @@
+extends layout/main
+
+block content
+  .container
+    .row.justify-content-md-center
+      .col-12.col-md-6
+        .card.mt-5(
+          style="background-color: #ffffffcc;"
+        )
+          .card-body
+            .card-title.text-center.border-bottom.mb-4
+              img(src="/images/editTask-logo.png")
+            if error
+              each val,index in error
+                .alert.alert-danger.alert-dismissible.fade.show.animate__animated.animate__shakeX(
+                  role="alert"
+                )
+                  strong= val.msg
+                  button(
+                    type="button",
+                    class="close",
+                    data-dismiss="alert",
+                    aria-label="Close"
+                  )
+                    span(aria-hidden="true") &times;
+            form.form-group(
+              method="post",
+            ) 
+              input(
+                type="hidden",
+                name="_csrf",
+                value=`${csrfToken}`
+              )
+              .row.mb-2
+                .col-6
+                  input#email.form-control(
+                    type='text', 
+                    name="title",
+                    placeholder="Title",
+                    autocomplete,
+                    value=`${title_val ? title_val : ''}`
+                  )
+                .col-6
+                  input#email.form-control(
+                    type='date', 
+                    name="expiry",
+                    placeholder="Expiry Of Date",
+                    autocomplete,
+                    value=`${expiry_val ? expiry_val : ''}`
+                  )
+              textarea.form-control.w-100.mb-2(
+                name="content",
+                rows="4",
+                cols="50"
+              )=content_val
+              button.btn.btn-block.btn-info(
+                type="submit"
+              ) Submit
+              a.btn.btn-block.btn-primary(
+                href="/"
+              ) Back

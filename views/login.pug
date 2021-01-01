@@ -1,0 +1,80 @@
+extends layout/main
+
+block content
+  .container
+    .row.justify-content-md-center
+      .col-12.col-md-6
+        .card.mt-5(
+          style="background-color: #ffffffcc;"
+        )
+          .card-body
+            .card-title.text-center.border-bottom.mb-4
+              img(src="/images/login-logo.png")
+            if success
+              each val,index in success
+                .alert.alert-success.alert-dismissible.fade.show.animate__animated.animate__shakeX(
+                  role="alert"
+                )
+                  strong= val.msg
+                  button(
+                    type="button",
+                    class="close",
+                    data-dismiss="alert",
+                    aria-label="Close"
+                  )
+                    span(aria-hidden="true") &times;
+            if error
+              each val,index in error
+                .alert.alert-danger.alert-dismissible.fade.show.animate__animated.animate__shakeX(
+                  role="alert"
+                )
+                  strong= val.msg
+                  button(
+                    type="button",
+                    class="close",
+                    data-dismiss="alert",
+                    aria-label="Close"
+                  )
+                    span(aria-hidden="true") &times;
+            form.form-group(
+              method="post",
+            )
+              input(
+                type="hidden",
+                name="_csrf",
+                value=`${csrfToken}`
+              )
+              .input-group.mb-3.flex-wrap
+                .input-group-prepend
+                  label.input-group-text.bg-white(
+                    for="email"
+                  )
+                    i.far.fa-envelope
+                input#email.form-control(
+                  type='text', 
+                  name="email",
+                  placeholder="Email",
+                  autocomplete,
+                  value=`${email_val ? email_val : ''}`
+                )
+              .input-group.mb-3
+                .input-group-prepend
+                  label.input-group-text.bg-white(
+                    for="password"
+                  )
+                    i.fas.fa-key
+                input#password.form-control(
+                  type='password', 
+                  name="password",
+                  placeholder="Password",
+                  autocomplete,
+                  value=`${password_val ? password_val : ''}`
+                )
+              button.btn.btn-block.btn-info(
+                type="submit"
+              ) Login
+            hr
+            .d-flex.align-items-center.justify-content-end
+              small.pr-2 No Account?
+              button.btn.bg-white.rounded-pill.font-italic
+                a.log-out-btn.href-normal.font-weight-bold(href='/users/sign-up') Sign up!

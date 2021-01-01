@@ -1,0 +1,84 @@
+extends layout/main
+
+block content
+  .container
+    .row.justify-content-md-center
+      .col-12.col-md-6
+        .card.mt-5(
+          style="background-color: #ffffffcc;"
+        )
+          .card-body
+            .card-title.text-center.border-bottom.mb-4
+              img(src="/images/todos-logo.png")
+            if success
+              each val,index in success
+                .alert.alert-success.alert-dismissible.fade.show.animate__animated.animate__shakeX(
+                  role="alert"
+                )
+                  strong= val.msg
+                  button(
+                    type="button",
+                    class="close",
+                    data-dismiss="alert",
+                    aria-label="Close"
+                  )
+                    span(aria-hidden="true") &times;
+            if error
+              each val,index in error
+                .alert.alert-danger.alert-dismissible.fade.show.animate__animated.animate__shakeX(
+                  role="alert"
+                )
+                  strong= val.msg
+                  button(
+                    type="button",
+                    class="close",
+                    data-dismiss="alert",
+                    aria-label="Close"
+                  )
+                    span(aria-hidden="true") &times;
+            if todos
+              .row.no-gutters
+                .col-6
+                  a.btn.btn-dark.mb-0.rounded-0.dropdownBtn.w-100.position-relative(
+                    type="button",
+                    href="?status=0"
+                  ) Doing
+                .col-6
+                  a.btn.btn-dark.mb-0.rounded-0.dropdownBtn.w-100.position-relative(
+                    type="button",
+                    href="?status=1"
+                  ) Done
+              each todo,index in todos
+                .card
+                  .card-body
+                    .row
+                      .col-9.col-md-10.d-flex.align-items-center
+                        .custom-control.custom-checkbox
+                          input.custom-control-input(
+                            type="checkbox",
+                            id=`customCheck1_${index}`,
+                            onclick=`changeStatus(this, '${index}')`
+                            checked=(todo.status === '1' ? "checked" : undefined)
+                          )
+                          label.custom-control-label(
+                            for=`customCheck1_${index}`
+                          )
+                        div 
+                          label(
+                            for="customCheck1"
+                          )
+                            span.d-block= todo.title
+                            small.d-block= todo.expiry
+                      .col-3.col-md-2.d-flex.align-items-center.justify-content-between
+                        a.text-dark(
+                          href=`/editTask/${index}`
+                        )
+                          i.fas.fa-edit
+                        a.text-dark(
+                          href="javascript: void(0);"
+                        )
+                          i.fas.fa-trash(
+                            onclick=`deleteTodo('${index}')`,
+                          )
+            if !todos
+              h1 Non Todos
